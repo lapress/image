@@ -1,0 +1,29 @@
+{
+    "name": "lapress/image",
+    "description": "laPress image handler",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Szczepanski",
+            "email": "sebastian@ably.pl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LaPress\\Image\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaPress\\Image\\ImageServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "intervention/image": "^2.5",
+        "intervention/imagecache": "^2.4"
+    }
+}
