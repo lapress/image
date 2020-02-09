@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'allowed_modification_methods' => ['fit', 'resize'],
     'default_modification_method' => 'fit',
     'encoded_image' => [
         'quality' => 75,
@@ -15,5 +14,5 @@ return [
         // 'driver' => ''
     ],
     'keep_aspect_ration_on_resize' => true,
-    'route' => 'img/{width}/{height}/{method}/{path}'
+    'route' => 'img/{width}/{height}/{path}'
 ];
