@@ -14,5 +14,7 @@ return [
         // 'driver' => ''
     ],
     'keep_aspect_ration_on_resize' => true,
-    'route' => 'img/{width}/{height}/{path}'
+    'route' => 'img/{width}/{height}/{method}/{path}',
+    'allowed_modification_methods'=> ['fit', 'resize'],
+    'storage' => 'local'
 ];

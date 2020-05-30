@@ -3,7 +3,8 @@
 namespace LaPress\Image;
 
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 
 /**
@@ -26,17 +27,17 @@ class ImageService
         $manager = new ImageManager(
             config('images.image_manager', [])
         );
+        $path = Str::startsWith($path, 'content') ? str_replace('content', 'wp-content', $path) : $path;
 
         $content = $manager->cache(function ($image) use ($path, $width, $height, $method) {
             abort_unless(
-                File::exists(storage_path($path)), Response::HTTP_NOT_FOUND
+                Storage::disk(config('images.storage'))->exists($path), Response::HTTP_NOT_FOUND
             );
 
-            return $image->make(storage_path($path))->{$method}($width, $height, function ($constraint) use ($method) {
+            return $image->make(Storage::disk(config('images.storage'))->get($path))->{$method}($width, $height, function ($constraint) use ($method) {
                 if ($method === 'resize' && config('images.keep_aspect_ration_on_resize', true)) {
                     $constraint->aspectRatio();
                 }
-
             })->encode(
                 config('images.encoded_image.format', 'jpg'),
                 config('images.encoded_image.quality', 75)
