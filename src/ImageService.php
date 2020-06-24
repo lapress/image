@@ -20,9 +20,9 @@ class ImageService
      * @param string|null $method
      * @return Response
      */
-    public function serve(string $path, int $width, int $height)
+    public function serve(string $path, int $width, int $height, ?string $method)
     {
-        $method = config('images.default_modification_method', 'fit');
+        $method = $method ?: config('images.default_modification_method', 'fit');
 
         $manager = new ImageManager(
             config('images.image_manager', [])
@@ -44,6 +44,7 @@ class ImageService
             );
 
         }, config('images.cache.ttl'));
+
 
         return $this->buildImageResponse($content);
     }
