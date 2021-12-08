@@ -45,7 +45,6 @@ class ImageService
 
         }, config('images.cache.ttl'));
 
-
         return $this->buildImageResponse($content);
     }
 
